@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block titulo %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"/>
+</head>
+<body>
+<header class="container">
+    <nav>
+        <ul>
+            <li><strong>🏪 Ecommerce</strong></li>
+        </ul>
+        <ul>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="{% url 'categorias' %}">Produtos</a></li>
+        </ul>
+    </nav>
+</header>
+<main class="container">
+    {% block conteudo %}{% endblock %}
+</main>
+</body>
+</html>
