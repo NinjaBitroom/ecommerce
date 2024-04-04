@@ -1,6 +1,6 @@
 from django.views.generic import ListView, TemplateView
 
-from catprodutos.models import Categoria, Produto
+from catproduto.models import Categoria, Produto
 
 
 class IndexView(TemplateView):
@@ -19,8 +19,9 @@ class ProdutoListView(ListView):
     template_name = 'produtos/produtos.html'
     queryset = Produto.disponiveis.all()
 
-    def get_queryset(self, slugcat=None):
+    def get_queryset(self):
         qs = super().get_queryset()
+        slugcat = self.kwargs.get('slug')
         if slugcat:
             cat = Categoria.objects.get(slug=slugcat)
             qs = qs.filter(categoria=cat)

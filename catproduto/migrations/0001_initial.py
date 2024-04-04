@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
                 ('preco', models.DecimalField(decimal_places=2, max_digits=10)),
                 ('criado', models.DateTimeField(auto_now_add=True)),
                 ('atualizado', models.DateTimeField(auto_now=True)),
-                ('categoria', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='produtos', to='catprodutos.categoria')),
+                ('categoria', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='produtos', to='catproduto.categoria')),
             ],
             options={
                 'verbose_name': 'produto',
