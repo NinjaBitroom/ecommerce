@@ -10,11 +10,14 @@
 <header class="container">
     <nav>
         <ul>
-            <li><strong>🏪 Ecommerce</strong></li>
+            <li>
+                <a href="{% url 'home' %}"><strong>🏪 Ecommerce</strong></a>
+
+            </li>
         </ul>
         <ul>
             <li><a href="#">Sobre</a></li>
-            <li><a href="{% url 'categorias' %}">Produtos</a></li>
+            <li><a href="{% url 'listartodosprodutos' %}">Produtos</a></li>
         </ul>
     </nav>
 </header>

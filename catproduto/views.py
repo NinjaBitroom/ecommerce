@@ -7,12 +7,6 @@ class IndexView(TemplateView):
     template_name = 'index.html'
 
 
-class CategoriaListView(ListView):
-    model = Categoria
-    template_name = 'produtos/categorias.html'
-    context_object_name = 'categorias'
-
-
 class ProdutoListView(ListView):
     model = Produto
     context_object_name = 'produtos'
@@ -26,3 +20,9 @@ class ProdutoListView(ListView):
             cat = Categoria.objects.get(slug=slugcat)
             qs = qs.filter(categoria=cat)
         return qs
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        categorias = Categoria.objects.all()
+        context['categorias'] = categorias
+        return context

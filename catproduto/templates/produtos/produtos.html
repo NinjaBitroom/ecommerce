@@ -4,6 +4,14 @@
     Meu Ecommerce 2024 - Produto
 {% endblock %}
 {% block conteudo %}
+        <article>
+        <a href="{% url 'listartodosprodutos' %}" class="outline" role="button">Todos</a>
+        {% for categoria in categorias %}
+            <a href="{% url 'listarprodutos' categoria.slug %}" class="outline" role="button">{{ categoria.nome }}</a>
+        {% empty %}
+        	<p>Não existe produtos :(</p>
+        {% endfor %}
+    </article>
     <article>
     <table>
     <thead>
