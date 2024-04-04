@@ -10,18 +10,16 @@
         {% else %}
             <a href="{% url 'listartodosprodutos' %}" role="button">Todos</a>
         {% endif %}
-        {% with categoria as cat %}
-            {% for categoria in categorias %}
-                {% if cat.slug == categoria.slug %}
-                    <a href="{% url 'listarprodutos' categoria.slug %}" role="button">{{ categoria.nome }}</a>
-                {% else %}
-                    <a href="{% url 'listarprodutos' categoria.slug %}" class="outline"
-                       role="button">{{ categoria.nome }}</a>
-                {% endif %}
-            {% empty %}
-                <p>Não existe produtos :(</p>
-            {% endfor %}
-        {% endwith %}
+        {% for cat in categorias %}
+            {% if categoria.slug == cat.slug %}
+                <a href="{% url 'listarprodutos' cat.slug %}" role="button">{{ cat.nome }}</a>
+            {% else %}
+                <a href="{% url 'listarprodutos' cat.slug %}" class="outline"
+                   role="button">{{ cat.nome }}</a>
+            {% endif %}
+        {% empty %}
+            <p>Não existe produtos :(</p>
+        {% endfor %}
     </article>
     <article>
         <table>
