@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titulo %}
+    {{ produto }}
+{% endblock %}
+{% block conteudo %}
+    <article>
+        <a href="{% url 'listartodosprodutos' %}" role="button" class="outline">Listar Produtos</a>
+        <hr>
+        <h1>{{ produto.nome }}</h1>
+        {% if produto.imagem %}
+            <img src="{{ produto.imagem.url }}" alt="Imagem de {{ produto.nome }}" style="height: 240px">
+        {% else %}
+            <img src="{% static 'sem_img.png' %}" alt="Imagem faltando" style="height: 240px">
+        {% endif %}
+        <p><small>Categoria: <a
+                href="{% url 'listarprodutos' produto.categoria.slug %}">{{ produto.categoria }}</a></small></p>
+        <p>Descrição: <i>{{ produto.descricao }}</i></p>
+        <p>Preço: {{ produto.preco }}</p>
+        <button>Adicionar ao Carrinho</button>
+    </article>
+{% endblock %}

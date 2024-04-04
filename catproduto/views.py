@@ -1,4 +1,4 @@
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView, TemplateView, DetailView
 
 from catproduto.models import Categoria, Produto
 
@@ -26,3 +26,9 @@ class ProdutoListView(ListView):
         categorias = Categoria.objects.all()
         context['categorias'] = categorias
         return context
+
+
+class ProdutoDetailView(DetailView):
+    model = Produto
+    context_object_name = 'produto'
+    template_name = 'produtos/produto.html'
