@@ -25,6 +25,11 @@ class ProdutoListView(ListView):
         context = super().get_context_data(*args, **kwargs)
         categorias = Categoria.objects.all()
         context['categorias'] = categorias
+        slugcat = self.kwargs.get('slug')
+        categoria = None
+        if slugcat:
+            categoria = Categoria.objects.get(slug=slugcat)
+        context['categoria'] = categoria
         return context
 
 

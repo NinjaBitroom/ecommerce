@@ -4,40 +4,52 @@
     Meu Ecommerce 2024 - Produto
 {% endblock %}
 {% block conteudo %}
-        <article>
-        <a href="{% url 'listartodosprodutos' %}" class="outline" role="button">Todos</a>
-        {% for categoria in categorias %}
-            <a href="{% url 'listarprodutos' categoria.slug %}" class="outline" role="button">{{ categoria.nome }}</a>
-        {% empty %}
-        	<p>Não existe produtos :(</p>
-        {% endfor %}
+    <article>
+        {% if categoria %}
+            <a href="{% url 'listartodosprodutos' %}" class="outline" role="button">Todos</a>
+        {% else %}
+            <a href="{% url 'listartodosprodutos' %}" role="button">Todos</a>
+        {% endif %}
+        {% with categoria as cat %}
+            {% for categoria in categorias %}
+                {% if cat.slug == categoria.slug %}
+                    <a href="{% url 'listarprodutos' categoria.slug %}" role="button">{{ categoria.nome }}</a>
+                {% else %}
+                    <a href="{% url 'listarprodutos' categoria.slug %}" class="outline"
+                       role="button">{{ categoria.nome }}</a>
+                {% endif %}
+            {% empty %}
+                <p>Não existe produtos :(</p>
+            {% endfor %}
+        {% endwith %}
     </article>
     <article>
-    <table>
-    <thead>
-        <tr>
-            <th>Imagem</th>
-            <th>Nome</th>
-            <th>Preço</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for produto in produtos %}
+        <table>
+            <thead>
             <tr>
-            <td>
-            {% if produto.imagem %}
-                <img src="{{ produto.imagem.url }}" alt="Imagem de {{ produto.nome }}" style="height: 120px">
-            {% else %}
-                <img src="{% static 'sem_img.png' %}" alt="Imagem faltando" style="height: 120px">
-            {% endif %}
-            </td>
-            <td><a href="{% url 'detalharproduto' produto.slug %}">{{ produto.nome }}</a></td>
-            <td>R$ {{ produto.preco }}</td>
+                <th>Imagem</th>
+                <th>Nome</th>
+                <th>Preço</th>
             </tr>
-        {% empty %}
-            <p>Não tem produtos ainda...</p>
-        {% endfor %}
-    </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for produto in produtos %}
+                <tr>
+                    <td>
+                        {% if produto.imagem %}
+                            <img src="{{ produto.imagem.url }}" alt="Imagem de {{ produto.nome }}"
+                                 style="height: 120px">
+                        {% else %}
+                            <img src="{% static 'sem_img.png' %}" alt="Imagem faltando" style="height: 120px">
+                        {% endif %}
+                    </td>
+                    <td><a href="{% url 'detalharproduto' produto.slug %}">{{ produto.nome }}</a></td>
+                    <td>R$ {{ produto.preco }}</td>
+                </tr>
+            {% empty %}
+                <p>Não tem produtos ainda...</p>
+            {% endfor %}
+            </tbody>
+        </table>
     </article>
 {% endblock %}
