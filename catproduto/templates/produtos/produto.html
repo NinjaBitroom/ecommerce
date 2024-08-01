@@ -17,6 +17,9 @@
                 href="{% url 'listarprodutos' produto.categoria.slug %}">{{ produto.categoria }}</a></small></p>
         <p>Descrição: <i>{{ produto.descricao }}</i></p>
         <p>Preço: {{ produto.preco }}</p>
-        <button>Adicionar ao Carrinho</button>
+        <form action="{% url 'carrinhoadd' produto.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" role="button" value="Adicionar ao Carrinho">
+        </form>
     </article>
 {% endblock %}

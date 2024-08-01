@@ -41,7 +41,7 @@
                             <img src="{% static 'sem_img.png' %}" alt="Imagem faltando" style="height: 120px">
                         {% endif %}
                     </td>
-                    <td><a href="{% url 'detalharproduto' produto.slug %}">{{ produto.nome }}</a></td>
+                    <td><a href="{% url 'detalheproduto' produto.slug %}">{{ produto.nome }}</a></td>
                     <td>R$ {{ produto.preco }}</td>
                 </tr>
             {% empty %}

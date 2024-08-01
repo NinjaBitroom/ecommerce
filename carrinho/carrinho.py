@@ -2,17 +2,15 @@ from __future__ import annotations
 
 from collections.abc import Iterator
 from decimal import Decimal
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
 from django.conf import settings
-from django.http import request
 
-if TYPE_CHECKING:
-    from catproduto.models import Produto
+from catproduto.models import Produto
 
 
 class Carrinho:
-    def __init__(self) -> None:
+    def __init__(self, request) -> None:
         """Inicializa o carrinho de compras."""
         self.session = request.session
         carrinho = self.session.get(settings.CART_SESSION_ID)
@@ -82,7 +80,7 @@ class Carrinho:
         """
         return sum(Decimal(item['preco']) * item['quantidade'] for item in self.carrinho.values())
 
-    def limpar_carrinho(self) -> None:
+    def limpar(self) -> None:
         """Remove todos os itens do carrinho.
 
         :return: None

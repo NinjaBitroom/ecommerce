@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titulo %}
+    Carrinho
+{% endblock %}
+{% block conteudo %}
+    <article>
+        <h1>Seu carrinho de compras 🛒</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Imagem</th>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Preço Unitário</th>
+                    <th>Total</th>
+                    <th>Remover</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in carrinho %}
+                    {% with item.produto as prod %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'detalheproduto' prod.slug %}">
+                                    <img src="{% if prod.imagem %}
+                                    	{{ prod.imagem }}
+                                    {% else %}
+                                    	{% static 'sem_img.png' %}
+                                    {% endif %}" alt="Imagem do produto {{ prod.nome }}" width="90" height="100">
+                                </a>
+                            </td>
+                            <td>
+                                {{ prod.nome }}
+                            </td>
+                            <td>
+                                {# Mostrando o formulário para alterar a quantidade no carrinho #}
+                                <form action="{% url 'carrinhoadd' prod.id %}" method="post">
+                                    {% csrf_token %}
+                                    {{ item.alterar.quant }}
+                                    {{ item.alterar.alterar }}
+                                    <input type="submit" value="Atualizar" role="button">
+                                </form>
+                            </td>
+                            <td>
+                                R$ {{ item.preco }}
+                            </td>
+                            <td>
+                                R$ {{ carrinho.get_preco_total }}
+                            </td>
+                            <td>
+                                <form action="{% url 'carrinhoremove' prod.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input type="submit" value="Remover" role="button">
+                                </form>
+                            </td>
+                        </tr>
+                    {% endwith %}
+                {% empty %}
+                    <p>Seu carrinho está vazio...</p>
+                {% endfor %}
+            </tbody>
+        </table>
+    </article>
+{% endblock %}
