@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block titulo %}
-    Carrinho
+    Fim
 {% endblock %}
 {% block conteudo %}
     <article>
-        <h1>Seu carrinho de compras 🛒</h1>
+        <h1>Obrigado por comprar conosco</h1>
         <table>
             <thead>
             <tr>
@@ -14,11 +14,10 @@
                 <th>Quantidade</th>
                 <th>Preço Unitário</th>
                 <th>Total</th>
-                <th>Remover</th>
             </tr>
             </thead>
             <tbody>
-            {% for item in carrinho %}
+            {% for item in pedido.itens_pedido %}
                 {% with item.produto as prod %}
                     <tr>
                         <td>
@@ -34,40 +33,26 @@
                             {{ prod.nome }}
                         </td>
                         <td>
-                            {# Mostrando o formulário para alterar a quantidade no carrinho #}
-                            <form action="{% url 'carrinhoadd' prod.id %}" method="post">
-                                {% csrf_token %}
-                                {{ item.alterar.quant }}
-                                {{ item.alterar.alterar }}
-                                <input type="submit" value="Atualizar" role="button">
-                            </form>
+                            {{ item.quantidade }}
                         </td>
                         <td>
                             R$ {{ item.preco }}
                         </td>
                         <td>
-                            R$ {{ item.preco_total }}
-                        </td>
-                        <td>
-                            <form action="{% url 'carrinhoremove' prod.id %}" method="post">
-                                {% csrf_token %}
-                                <input type="submit" value="Remover" role="button">
-                            </form>
+                            R$ {{ item.get_custo }}
                         </td>
                     </tr>
                 {% endwith %}
-            {% empty %}
-                <p>Seu carrinho está vazio...</p>
             {% endfor %}
             </tbody>
             <tfoot>
             <tr>
-                <td colspan="4">Total do Carrinho</td>
-                <td colspan="2">R$ {{ carrinho.get_preco_total }}</td>
+                <td colspan="4">Total Geral</td>
+                <td colspan="1">R$ {{ carrinho.get_total }}</td>
             </tr>
             </tfoot>
         </table>
         <a href="{% url 'listartodosprodutos' %}" role="button">Continuar comprando</a>
-        <a href="{% url 'addpedido' %}" role="button" class="secondary">Finalizar pedido</a>
+        <a href="#" role="button" class="secondary">Efetuar pagamento</a>
     </article>
 {% endblock %}

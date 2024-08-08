@@ -19,6 +19,7 @@
         <p>Preço: {{ produto.preco }}</p>
         <form action="{% url 'carrinhoadd' produto.id %}" method="post">
             {% csrf_token %}
+            {{ formadd }}
             <input type="submit" role="button" value="Adicionar ao Carrinho">
         </form>
     </article>

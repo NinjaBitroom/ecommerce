@@ -28,6 +28,7 @@
       <list>
         <option value="$MODULE_DIR$/carrinho/templates" />
         <option value="$MODULE_DIR$/catproduto/templates" />
+        <option value="$MODULE_DIR$/pedidos/templates" />
       </list>
     </option>
   </component>

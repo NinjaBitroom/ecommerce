@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titulo %}
+    pedido
+{% endblock %}
+{% block conteudo %}
+    <article>
+        <h2>Formulário de Pedido</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Finalizar Pedido" role="button">
+        </form>
+    </article>
+    <article>
+        <h2>Seu Pedido</h2>
+        <ul>
+            {% for item in carrinho %}
+                <li>
+                    {{item.quantidade }} => {{ item.produto.nome }}
+                    <span>R$ {{ item.preco_total }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+        <p>Total: R$ {{ carrinho.get_valor_total }}</p>
+    </article>
+{% endblock %}
