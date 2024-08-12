@@ -29,7 +29,7 @@ class ResumoPedidoTemplateView(TemplateView):
     template_name = 'pedido/resumopedido.html'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        ctx = super().get_context_data(**kwargs)
         id_pedido = self.request.session.get('id_pedido')
-        context['pedido'] = Pedido.objects.get(id=id_pedido)
-        return context
+        ctx['pedido'] = Pedido.objects.get(id=id_pedido)
+        return ctx

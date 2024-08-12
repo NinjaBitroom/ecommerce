@@ -23,7 +23,7 @@ class Pedido(models.Model):
     def __str__(self) -> str:
         return f'Pedido do {self.nome} {self.sobrenome} - {self.id}'
 
-    def get_total_pedido(self):
+    def get_total(self):
         return sum(item.get_custo() for item in self.itens_pedido.all())
 
 
