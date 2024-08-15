@@ -14,7 +14,10 @@ class PedidoCreateView(CreateView):
 
     def form_valid(self, form):
         car = Carrinho(self.request)
-        pedido = form.save()
+        pedido = form.save(commit=False)
+        usuario = self.request.user
+        pedido.cliente = usuario
+        pedido.save()
         for item in car:
             ItemPedido.objects.create(
                 pedido=pedido, produto=item['produto'], preco=item['preco'],
