@@ -7,7 +7,6 @@ from django.views.generic import CreateView
 from usuarios.forms import CadUsuarioForm
 
 
-# Create your views here.
 class UsuarioCreateView(CreateView):
     template_name = 'usuario/cadusuario.html'
     form_class = CadUsuarioForm

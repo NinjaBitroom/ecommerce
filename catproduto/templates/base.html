@@ -19,6 +19,16 @@
             <li><a href="#">Sobre</a></li>
             <li><a href="{% url 'listartodosprodutos' %}">Produtos</a></li>
             <li><a href="{% url 'carrinhodetalhe' %}">Carrinho</a></li>
+            {% if request.user.is_authenticated %}
+            <li>
+                {{ request.user.get_full_name }}
+                <a href="{% url 'logoutuser' %}">🔌</a>
+            </li>
+            {% else %}
+            <li><a href="{% url 'loginuser' %}" role="button"
+                   class="outline">Entrar</a>
+            </li>
+            {% endif %}
         </ul>
     </nav>
 </header>

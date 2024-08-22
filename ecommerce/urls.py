@@ -18,8 +18,17 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
+    path(
+        'accounts/login/', auth_views.LoginView.as_view(),
+        name='loginuser'
+    ),
+    path(
+        'accounts/logout/', auth_views.LogoutView.as_view(),
+        name='logoutuser'
+    ),
     path('admin/', admin.site.urls),
     path('', include('catproduto.urls')),
     path('carrinho/', include('carrinho.urls')),
