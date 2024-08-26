@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titulo %}
+    Pedidos
+{% endblock %}
+{% block conteudo %}
+    {% for pedido in pedidos %}
+        <a href="{% url 'resumopedido' pedido.id %}">{{ pedido }}</a><br>
+    {% empty %}
+    	Nenhum pedido encontrado
+    {% endfor %}
+    
+{% endblock %}

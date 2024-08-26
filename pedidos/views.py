@@ -1,7 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
 from carrinho.carrinho import Carrinho
 from pedidos.forms import PedidoModelForm
@@ -10,7 +9,6 @@ from pedidos.models import ItemPedido, Pedido
 
 class PedidoCreateView(LoginRequiredMixin, CreateView):
     form_class = PedidoModelForm
-    success_url = reverse_lazy('resumopedido')
     template_name = 'pedido/formpedido.html'
 
     def form_valid(self, form):
@@ -25,15 +23,27 @@ class PedidoCreateView(LoginRequiredMixin, CreateView):
                 quantidade=item['quantidade']
             )
         car.limpar()
-        self.request.session['id_pedido'] = pedido.id
-        return redirect('resumopedido')
+        return redirect('resumopedido', pk=pedido.id)
 
 
-class ResumoPedidoTemplateView(TemplateView):
+class ResumoPedidoTemplateView(LoginRequiredMixin, DetailView):
     template_name = 'pedido/resumopedido.html'
+    model = Pedido
+    context_object_name = 'pedido'
 
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        id_pedido = self.request.session.get('id_pedido')
-        ctx['pedido'] = Pedido.objects.get(id=id_pedido)
-        return ctx
+
+class ListarPedidosListView(LoginRequiredMixin, ListView):
+    model = Pedido
+    template_name = 'pedido/listarpedidos.html'
+    context_object_name = 'pedidos'
+
+    def get_queryset(self):
+        return Pedido.objects.filter(cliente=self.request.user)
+
+
+class EfetuarPagamentoView(LoginRequiredMixin, UpdateView):
+    def post(self, request, *args, **kwargs):
+        pedido = Pedido.objects.get(pk=kwargs['pk'])
+        pedido.pago = True
+        pedido.save()
+        return redirect('listarpedidos')

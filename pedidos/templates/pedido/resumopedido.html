@@ -53,6 +53,13 @@
             </tfoot>
         </table>
         <a href="{% url 'listartodosprodutos' %}" role="button">Continuar comprando</a>
-        <a href="#" role="button" class="secondary">Efetuar pagamento</a>
+        {% if not pedido.pago %}
+            <form method="post" action="{% url 'pagarpedido' pedido.pk %}">
+                {% csrf_token %}
+                <button class="secondary" type="submit">Efetuar pagamento</button>
+            </form>
+        {% else %}
+            <p>Pedido pago</p>
+        {% endif %}
     </article>
 {% endblock %}
