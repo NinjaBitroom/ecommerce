@@ -54,7 +54,7 @@
         </table>
         <a href="{% url 'listartodosprodutos' %}" role="button">Continuar comprando</a>
         {% if not pedido.pago %}
-            <form method="post" action="{% url 'pagarpedido' pedido.pk %}">
+            <form method="post" action="{% url 'processar' %}">
                 {% csrf_token %}
                 <button class="secondary" type="submit">Efetuar pagamento</button>
             </form>
