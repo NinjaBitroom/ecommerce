@@ -18,6 +18,9 @@
       <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
+      <excludeFolder url="file://$MODULE_DIR$/.pyprojectx/pyprojectx/3.0.5-py3.12/Lib" />
+      <excludeFolder url="file://$MODULE_DIR$/.pyprojectx/venvs/main-d41d8cd98f00b204e9800998ecf8427e-py3.12/Lib" />
+      <excludeFolder url="file://$MODULE_DIR$/.pyprojectx/venvs/main-d41d8cd98f00b204e9800998ecf8427e-py3.12/Scripts" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.12 (ecommerce)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

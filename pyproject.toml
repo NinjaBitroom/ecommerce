@@ -1,0 +1,21 @@
+[project]
+dependencies = [
+    "black~=24.8",
+    "braintree~=4.29",
+    "django~=4.2.11",
+    "django-environ~=0.11",
+    "mysqlclient~=2.2",
+    "pillow~=10.4",
+]
+requires-python = ">=3.12"
+
+[tool.pyprojectx]
+main = ["pdm"]
+
+[tool.pyprojectx.aliases]
+run = "pdm run"
+manage = "@run manage.py"
+
+export = "pdm export -o requirements.txt --no-hashes"
+start = "@manage runserver"
+migrate = "@manage migrate"
